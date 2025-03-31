@@ -1,0 +1,7 @@
+# ignore binary and compile files
+*.o
+*.exe
+*.out
+
+# ignore  folders
+.vscode/
