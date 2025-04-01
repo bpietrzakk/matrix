@@ -38,9 +38,10 @@ class matrix {
         matrix multiplication (matrix &m);
 
         // ELEMENT-WISE MULTIPLICATION
+        matrix e_w_multiplication (matrix &m);
 
         // DETERMINANT
-        double determinant() const; // TO DO
+        double determinant(); // TO DO
 };
 
 
