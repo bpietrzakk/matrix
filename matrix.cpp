@@ -108,9 +108,42 @@ matrix matrix::e_w_multiplication (matrix &m) {
 }
 
 double matrix::determinant() {
-    // TO DO
+    if (rows != columns) {
+        throw std::invalid_argument("incompatible matrix dimensions");
+    }
 
-    // reducing matrix to echelon form
+    double pivot;
+    int pivotRow;
+    // reducing matrix to step form
+    for (int k =  0; k < columns; k++) {
+        pivot = 0;
+        pivotRow = k;
+
+        for (int w = k; w < rows; w++) {
+            if (fabs(data[w][k]) > pivot) {
+                pivot = data[w][k];
+                pivotRow = w;
+            }
+        }
+
+        if (pivot == 0.0) {
+            continue;
+        }
+
+        if (pivotRow != k) { // change position if pivot is not k row
+            // change rows
+            for (int i = 0; i < columns; i++) {
+                double temp = data[pivotRow][i];
+                data[pivotRow][i] = data[k][i];
+                data[k][i] = temp;
+            }
+        }
+
+        double temp = data[k+1][k] / data[k][k];
+        for (int i = k; i < columns; i++) {
+            //data[]
+        }
+    }
 }
 
 
