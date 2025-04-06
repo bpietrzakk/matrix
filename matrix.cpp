@@ -140,7 +140,8 @@ double matrix::determinant() {
                 data[k][i] = temp;
             }
         }
-        
+                
+        //  TO DO!
         // data[k][k] = pivot
         
         // for row
