@@ -112,6 +112,7 @@ double matrix::determinant() {
         throw std::invalid_argument("incompatible matrix dimensions");
     }
 
+    double det = 1.0;
     double pivot;
     int pivotRow;
     // reducing matrix to step form
@@ -119,31 +120,49 @@ double matrix::determinant() {
         pivot = 0;
         pivotRow = k;
 
-        for (int w = k; w < rows; w++) {
+        for (int w = k; w < rows; w++) { // find the biggest number in column to avoid division by a small number 
             if (fabs(data[w][k]) > pivot) {
                 pivot = data[w][k];
                 pivotRow = w;
             }
         }
 
-        if (pivot == 0.0) {
+        if (pivot == 0.0) { // if entire column is 0 go next
             continue;
         }
 
         if (pivotRow != k) { // change position if pivot is not k row
             // change rows
+            det *= -1; // for each rows change, det changes sign
             for (int i = 0; i < columns; i++) {
                 double temp = data[pivotRow][i];
                 data[pivotRow][i] = data[k][i];
                 data[k][i] = temp;
             }
         }
+        
+        // data[k][k] = pivot
+        
+        // for row
+        for (int i = k + 1; i < rows; i++) {
+            double factor = data[i][k]/data[k][k];
 
-        double temp = data[k+1][k] / data[k][k];
-        for (int i = k; i < columns; i++) {
-            //data[]
+            if (factor == 0.0) { continue; }
+            
+            // for columns
+            for (int j = k; j < columns; j++) {
+                data[i][j] -= factor * data[k][j];
+            }
         }
     }
+    // matrix is in row echelon form
+
+    // det is the product of the diagonal element
+    for (int i = 0; i < columns; i++) {
+        det *= data[i][i]; // det is 
+    }
+
+    return det;
 }
 
 
@@ -174,6 +193,10 @@ int main() {
     };
     matrix a(dataA);
     a.print();
+    double det = a.determinant();
+    a.print();
+    std::cout << "determinant: " << det << std::endl;
+
 
     std::vector<std::vector<double>> dataB {
         {3, 4, 5},
@@ -181,9 +204,9 @@ int main() {
         {9, 10, 11},
     };
     matrix b(dataB);
-    b.print();
+    //b.print();
     
-    matrix c = a.e_w_multiplication(b);
-    c.print();
+    //matrix c = a.e_w_multiplication(b);
+    //c.print();
     return 0;
 }
