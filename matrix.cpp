@@ -112,6 +112,8 @@ double matrix::determinant() {
         throw std::invalid_argument("incompatible matrix dimensions");
     }
 
+    matrix m = *this;
+
     double det = 1.0;
     double pivot;
     int pivotRow;
@@ -121,8 +123,8 @@ double matrix::determinant() {
         pivotRow = k;
 
         for (int w = k; w < rows; w++) { // find the biggest number in column to avoid division by a small number 
-            if (fabs(data[w][k]) > pivot) {
-                pivot = data[w][k];
+            if (fabs(m.data[w][k]) > pivot) {
+                pivot = m.data[w][k];
                 pivotRow = w;
             }
         }
@@ -135,9 +137,9 @@ double matrix::determinant() {
             // change rows
             det *= -1; // for each rows change, det changes sign
             for (int i = 0; i < columns; i++) {
-                double temp = data[pivotRow][i];
-                data[pivotRow][i] = data[k][i];
-                data[k][i] = temp;
+                double temp = m.data[pivotRow][i];
+                m.data[pivotRow][i] = m.data[k][i];
+                m.data[k][i] = temp;
             }
         }
                 
@@ -146,13 +148,13 @@ double matrix::determinant() {
         
         // for row
         for (int i = k + 1; i < rows; i++) {
-            double factor = data[i][k]/data[k][k];
+            double factor = m.data[i][k]/m.data[k][k];
 
             if (factor == 0.0) { continue; }
             
             // for columns
             for (int j = k; j < columns; j++) {
-                data[i][j] -= factor * data[k][j];
+                m.data[i][j] -= factor * m.data[k][j];
             }
         }
     }
@@ -160,7 +162,7 @@ double matrix::determinant() {
 
     // det is the product of the diagonal element
     for (int i = 0; i < columns; i++) {
-        det *= data[i][i]; // det is 
+        det *= m.data[i][i]; // det is 
     }
 
     return det;

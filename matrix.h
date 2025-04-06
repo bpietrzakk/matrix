@@ -26,13 +26,13 @@ class matrix {
         // display matrix
         void print();
 
-        // TRANSPOSITION
+        // TRANSPOSITION transpozycja
         matrix transposition();
 
-        // ADDITION
+        // ADDITION dodawanie
         matrix addition(matrix &m);
 
-        // SUBTRACTION
+        // SUBTRACTION odejmowanie
         matrix subtraction(matrix &m); // return matrix t = oryginal - m
 
         // MULTIPLICATION
@@ -42,7 +42,24 @@ class matrix {
         matrix e_w_multiplication (matrix &m);
 
         // DETERMINANT
-        double determinant(); // TO DO
+        double determinant();
+
+        // OVERLOADING OPERATORS
+        matrix operator+(matrix &right) {
+            return addition(right);
+        }
+
+        matrix operator*(matrix &right) { 
+            return multiplication(right);
+        }
+
+        matrix operator-(matrix &right) {
+            return subtraction(right);
+        }
+
+        
+        // +
+
 };
 
 
